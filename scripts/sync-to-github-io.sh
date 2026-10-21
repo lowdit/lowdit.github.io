@@ -16,5 +16,8 @@ rsync -a --delete \
 # CI : pas de symlink thème local
 if [ -f "$DEST/go.mod" ]; then
   sed -i '' '/^replace /d' "$DEST/go.mod" 2>/dev/null || sed -i '/^replace /d' "$DEST/go.mod"
+  if command -v hugo >/dev/null 2>&1; then
+    (cd "$DEST" && hugo mod get ./...) || true
+  fi
 fi
 echo "→ Synced to $DEST (go.mod replace stripped for CI)"

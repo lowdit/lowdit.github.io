@@ -36,7 +36,34 @@ fi
 
 echo "→ Hugo site directory: $SITE_DIR"
 
+# En local monorepo, go.mod peut contenir replace => ../minigo ; sur GitHub Pages le voisin n'existe pas.
+prepare_hugo_go_mod() {
+  local dir="$1"
+  local mod="$dir/go.mod"
+  [ -f "$mod" ] || return 0
+  local changed=0
+  local out=""
+  while IFS= read -r line || [ -n "$line" ]; do
+    if [[ "$line" =~ ^replace[[:space:]]+([^[:space:]]+)[[:space:]]+\=\>[[:space:]]*(.+)$ ]]; then
+      local repl_path="${BASH_REMATCH[2]%%#*}"
+      repl_path="$(echo "$repl_path" | xargs)"
+      if [ -f "$dir/$repl_path/go.mod" ]; then
+        out+="$line"$'\n'
+      else
+        changed=1
+        echo "→ go.mod: replace ignoré (cible absente: $repl_path)" >&2
+      fi
+    else
+      out+="$line"$'\n'
+    fi
+  done < "$mod"
+  if [ "$changed" -eq 1 ]; then
+    printf '%s' "$out" > "$mod"
+  fi
+}
+
 if [ -f "$SITE_DIR/go.mod" ]; then
+  prepare_hugo_go_mod "$SITE_DIR"
   (cd "$SITE_DIR" && hugo mod get ./...)
 fi
 

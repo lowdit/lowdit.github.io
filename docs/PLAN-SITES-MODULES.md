@@ -16,7 +16,7 @@ Pour le **lot 1** (Sligo, Repogo, Resugo, Fromago), les démos exampleSite sont 
 | Frago | Restitution d’audits et d’indicateurs | [lowdit/frago](https://github.com/lowdit/frago) | **Documentation** — [`https://lowdit.github.io/frago/docs/`](https://lowdit.github.io/frago/docs/) (vitrine produit dédiée : lot ultérieur) |
 | Repogo | Rapports PDF depuis des contenus web | [lowdit/repogo](https://github.com/lowdit/repogo) | **Publié** — [`https://lowdit.github.io/repogo/`](https://lowdit.github.io/repogo/) |
 | Fromago | Enquêtes et formulaires | [lowdit/fromago](https://github.com/lowdit/fromago) | **Publié** — [`https://lowdit.github.io/fromago/fr/`](https://lowdit.github.io/fromago/fr/) |
-| Minigo | Coque Hugo pour catalogues de documents | [lowdit/minigo](https://github.com/lowdit/minigo) | À créer ; convention proposée : `https://lowdit.github.io/minigo/` |
+| Minigo | Coque Hugo pour catalogues de documents | [lowdit/minigo](https://github.com/lowdit/minigo) | **Publié** — [`https://lowdit.github.io/minigo/`](https://lowdit.github.io/minigo/) (vérifié 2026-10-21) |
 | Resugo | CV et candidatures | [lowdit/resugo](https://github.com/lowdit/resugo) | **Publié** — [`https://lowdit.github.io/resugo/`](https://lowdit.github.io/resugo/) |
 | Higo | Sites éditoriaux Hugo | [lowdit/higo](https://github.com/lowdit/higo) | À créer ; convention proposée : `https://lowdit.github.io/higo/` |
 
