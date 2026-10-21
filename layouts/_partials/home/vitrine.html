@@ -7,7 +7,7 @@
     <h1 id="vitrine-hero-title">{{ .Title }}</h1>
     {{ with .Description }}<p class="vitrine-hero__lead">{{ . }}</p>{{ end }}
     <div class="vitrine-hero__actions">
-      <a class="minigo-btn minigo-btn--primary" href="#moteurs">Découvrir les moteurs</a>
+      <a class="minigo-btn minigo-btn--primary" href="#moteurs">Parcourir le catalogue</a>
       <a class="vitrine-hero__ghost" href="#exemples">Voir des exemples</a>
     </div>
   </div>
@@ -51,22 +51,31 @@
   </div>
 </section>
 
-<section class="vitrine-modules" id="modules" aria-labelledby="vitrine-moteurs-title">
+<section class="vitrine-modules" id="moteurs" aria-labelledby="vitrine-moteurs-title">
   <header class="vitrine-section-head vitrine-section-head--light">
     <p class="vitrine-section-head__eyebrow">Moteurs</p>
-    <h2 id="vitrine-moteurs-title">Formats de sortie et outils métier</h2>
-    <p class="vitrine-section-head__lede">Sligo, Repogo, Resugo, Fromago, Frago — chaque carte ouvre une <strong>démonstration en ligne</strong>, pas le dépôt GitHub.</p>
+    <h2 id="vitrine-moteurs-title">Présenter, publier, candidater</h2>
+    <p class="vitrine-section-head__lede">Sligo, Repogo et Resugo — chaque carte ouvre une <strong>démonstration en ligne</strong>.</p>
   </header>
-  {{ partial "vitrine/module-grid.html" (dict "items" site.Data.modules.moteurs "gridId" "moteurs") }}
+  {{ partial "vitrine/module-grid.html" (dict "items" site.Data.modules.moteurs) }}
 </section>
 
-<section class="vitrine-modules vitrine-modules--themes" id="themes" aria-labelledby="vitrine-themes-title">
+<section class="vitrine-modules vitrine-modules--split" id="terrain" aria-labelledby="vitrine-terrain-title">
   <header class="vitrine-section-head vitrine-section-head--light">
-    <p class="vitrine-section-head__eyebrow">Thèmes Hugo</p>
-    <h2 id="vitrine-themes-title">Coques pour assembler un site</h2>
-    <p class="vitrine-section-head__lede">Minigo et Higo habillent le contenu ; les moteurs ci-dessus ajoutent slides, PDF, formulaires ou restitution d’audit.</p>
+    <p class="vitrine-section-head__eyebrow">Audit et terrain</p>
+    <h2 id="vitrine-terrain-title">Kit auditeur et retour d’expérience</h2>
+    <p class="vitrine-section-head__lede">Frago pour structurer une restitution d’audit ; Fromago pour des enquêtes et formulaires reliés au dépôt du projet.</p>
   </header>
-  {{ partial "vitrine/module-grid.html" (dict "items" site.Data.modules.themes) }}
+  {{ partial "vitrine/module-grid.html" (dict "items" site.Data.modules.terrain) }}
+</section>
+
+<section class="vitrine-modules vitrine-modules--split" id="coques" aria-labelledby="vitrine-coques-title">
+  <header class="vitrine-section-head vitrine-section-head--light">
+    <p class="vitrine-section-head__eyebrow">Coques Hugo</p>
+    <h2 id="vitrine-coques-title">Assembler le site autour du contenu</h2>
+    <p class="vitrine-section-head__lede">Minigo catalogue les documents ; Higo porte un site éditorial. Les moteurs ci-dessus s’y branchent selon le besoin.</p>
+  </header>
+  {{ partial "vitrine/module-grid.html" (dict "items" site.Data.modules.coques) }}
 </section>
 
 <section class="vitrine-manifesto" aria-labelledby="vitrine-manifesto-title">

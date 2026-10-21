@@ -1,5 +1,5 @@
-# kind: moteur = Sligo, Repogo, Resugo, Fromago, Frago · theme = coque Hugo (Minigo, Higo)
-# Liens carte = démonstration uniquement (pas de dépôt sur la tuile).
+# Liens carte = démonstration uniquement.
+# moteurs = formats de sortie · terrain = audit / retour terrain · coques = shells Hugo
 
 moteurs:
   - id: sligo
@@ -29,15 +29,7 @@ moteurs:
     demo_url: https://lowdit.github.io/resugo/
     cta: Voir la démonstration
 
-  - id: fromago
-    name: Fromago
-    type: Enquêtes et formulaires
-    description: Créez des enquêtes ; selon la configuration, les réponses partent vers le dépôt du projet.
-    accent: "#FFB94D"
-    logo: /logos/fromago-mark.png
-    demo_url: https://lowdit.github.io/fromago/fr/
-    cta: Voir la démonstration
-
+terrain:
   - id: frago
     name: Frago
     type: Audits et indicateurs
@@ -47,7 +39,16 @@ moteurs:
     demo_url: https://lowdit.github.io/frago/docs/
     cta: Voir la démonstration
 
-themes:
+  - id: fromago
+    name: Fromago
+    type: Enquêtes et formulaires
+    description: Recueillir des retours terrain ; selon la configuration, les réponses partent vers le dépôt du projet.
+    accent: "#FFB94D"
+    logo: /logos/fromago-mark.png
+    demo_url: https://lowdit.github.io/fromago/fr/
+    cta: Voir la démonstration
+
+coques:
   - id: minigo
     name: Minigo
     type: Coque catalogue

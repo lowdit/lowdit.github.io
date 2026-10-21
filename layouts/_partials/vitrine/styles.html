@@ -1,9 +1,12 @@
 <style>
+  .minigo--home .minigo-main > .vitrine-hero:first-child {
+    margin-top: clamp(0.75rem, 2vw, 1.25rem);
+  }
   .vitrine-hero {
     padding: clamp(3rem, 7vw, 5rem) clamp(1.5rem, 5vw, 5rem) clamp(3.25rem, 6vw, 4.5rem);
     background: var(--lowdit-night);
     color: var(--lowdit-white);
-    border-radius: 0 0 1.25rem 1.25rem;
+    border-radius: 1.25rem;
     position: relative;
     overflow: hidden;
   }
@@ -17,6 +20,28 @@
     border: 1px solid color-mix(in srgb, var(--lowdit-turquoise) 35%, transparent);
     border-radius: 50%;
     pointer-events: none;
+    transform-origin: 40% 60%;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .vitrine-hero::after {
+      animation: vitrine-hero-orbit 56s ease-in-out infinite;
+    }
+  }
+  @keyframes vitrine-hero-orbit {
+    0%,
+    100% {
+      opacity: 0.55;
+      transform: rotate(0deg) scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: rotate(8deg) scale(1.02);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .vitrine-hero::after {
+      animation: none;
+    }
   }
   .vitrine-hero__inner {
     position: relative;
@@ -183,8 +208,11 @@
   .vitrine-modules {
     padding: 4rem clamp(1.5rem, 5vw, 5rem) 2rem;
   }
-  .vitrine-modules--themes {
+  .vitrine-modules--split {
     padding-top: 1.5rem;
+    padding-bottom: 2rem;
+  }
+  .vitrine-modules--split:last-of-type {
     padding-bottom: 4rem;
   }
   .vitrine-module-grid {

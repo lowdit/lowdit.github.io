@@ -1,24 +1,9 @@
-/* Essai motion header vitrine — revert :
-   1) params.lowdit.vitrineHeaderMotion = false dans config/_default/hugo.toml
-   2) ou supprimer ce fichier + le link dans layouts/index.html (block head) */
+/* Essai motion header — filet sous la nav uniquement (pas de pastille).
+   Désactiver : vitrineHeaderMotion = false dans hugo.toml */
 
 .minigo--home.vitrine-header-motion-on .minigo-header {
   position: sticky;
   overflow: clip;
-}
-
-.minigo--home.vitrine-header-motion-on .minigo-header::before {
-  content: "";
-  position: absolute;
-  top: 0.65rem;
-  right: clamp(1rem, 4vw, 3rem);
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: 50%;
-  background: var(--lowdit-turquoise);
-  box-shadow: 0 0 0 0 color-mix(in srgb, var(--lowdit-turquoise) 45%, transparent);
-  pointer-events: none;
-  z-index: 1;
 }
 
 .minigo--home.vitrine-header-motion-on .minigo-header::after {
@@ -42,9 +27,6 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .minigo--home.vitrine-header-motion-on .minigo-header::before {
-    animation: vitrine-header-pulse 4.5s ease-in-out infinite;
-  }
   .minigo--home.vitrine-header-motion-on .minigo-header::after {
     animation: vitrine-header-flow 18s ease-in-out infinite;
   }
@@ -60,30 +42,9 @@
   }
 }
 
-@keyframes vitrine-header-pulse {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.75;
-  }
-  50% {
-    transform: scale(1.15);
-    opacity: 1;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .minigo--home.vitrine-header-motion-on .minigo-header::before,
   .minigo--home.vitrine-header-motion-on .minigo-header::after {
     animation: none;
-  }
-  .minigo--home.vitrine-header-motion-on .minigo-header::after {
     background-position: 50% 50%;
-  }
-}
-
-@media (max-width: 680px) {
-  .minigo--home.vitrine-header-motion-on .minigo-header::before {
-    display: none;
   }
 }
