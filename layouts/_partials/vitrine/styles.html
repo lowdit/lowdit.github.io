@@ -1,0 +1,306 @@
+<style>
+  .vitrine-hero {
+    padding: clamp(3rem, 7vw, 5rem) clamp(1.5rem, 5vw, 5rem) clamp(3.25rem, 6vw, 4.5rem);
+    background: var(--lowdit-night);
+    color: var(--lowdit-white);
+    border-radius: 0 0 1.25rem 1.25rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .vitrine-hero::after {
+    content: "";
+    position: absolute;
+    width: min(42rem, 90vw);
+    height: min(42rem, 90vw);
+    right: -18%;
+    bottom: -55%;
+    border: 1px solid color-mix(in srgb, var(--lowdit-turquoise) 35%, transparent);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .vitrine-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 44rem;
+  }
+  .vitrine-hero__eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: color-mix(in srgb, var(--lowdit-turquoise) 90%, white);
+    margin: 0 0 1.15rem;
+  }
+  .vitrine-hero h1 {
+    font-family: var(--vitrine-font-title);
+    font-size: clamp(2.35rem, 5vw, 3.75rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    margin: 0 0 1.15rem;
+    max-width: 18ch;
+  }
+  .vitrine-hero__lead {
+    font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+    line-height: 1.65;
+    color: color-mix(in srgb, var(--lowdit-white) 82%, var(--lowdit-night));
+    max-width: 38rem;
+    margin: 0 0 1.75rem;
+  }
+  .vitrine-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.25rem;
+    align-items: center;
+  }
+  .vitrine-hero__ghost {
+    color: var(--lowdit-white);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+  }
+  .vitrine-intro {
+    padding: 2rem clamp(1.5rem, 5vw, 5rem);
+    background: color-mix(in srgb, var(--lowdit-night) 6%, var(--lowdit-cream));
+    border-bottom: 1px solid color-mix(in srgb, var(--lowdit-night) 10%, transparent);
+  }
+  .vitrine-intro__text {
+    max-width: 52rem;
+    margin: 0;
+    font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+    line-height: 1.7;
+    color: var(--lowdit-night);
+  }
+  .vitrine-section-head {
+    max-width: 52rem;
+    margin: 0 0 2.25rem;
+  }
+  .vitrine-section-head__eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--lowdit-muted);
+    margin: 0 0 0.85rem;
+  }
+  .vitrine-section-head h2 {
+    font-family: var(--vitrine-font-title);
+    font-size: clamp(2rem, 3.5vw, 2.85rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+    color: var(--lowdit-night);
+    margin: 0 0 0.85rem;
+  }
+  .vitrine-section-head__lede {
+    margin: 0;
+    color: var(--lowdit-muted);
+    font-size: 1.05rem;
+    line-height: 1.65;
+    max-width: 40rem;
+  }
+  .vitrine-recipes {
+    padding: 4rem clamp(1.5rem, 5vw, 5rem);
+    background: var(--lowdit-night);
+    color: var(--lowdit-white);
+  }
+  .vitrine-recipes .vitrine-section-head__eyebrow { color: color-mix(in srgb, var(--lowdit-white) 55%, var(--lowdit-turquoise)); }
+  .vitrine-recipes h2 { color: var(--lowdit-white); }
+  .vitrine-recipes .vitrine-section-head__lede { color: color-mix(in srgb, var(--lowdit-white) 78%, var(--lowdit-night)); font-size: 1.05rem; }
+  .vitrine-recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: 1rem;
+  }
+  .vitrine-recipe {
+    padding: 1.5rem 1.35rem;
+    border-radius: 0.5rem;
+    min-height: 13rem;
+    display: flex;
+    flex-direction: column;
+    color: var(--lowdit-night);
+  }
+  .vitrine-recipe--mint { background: color-mix(in srgb, var(--lowdit-turquoise) 35%, white); }
+  .vitrine-recipe--coral { background: color-mix(in srgb, var(--lowdit-coral) 28%, white); }
+  .vitrine-recipe--violet { background: color-mix(in srgb, var(--lowdit-violet) 22%, white); }
+  .vitrine-recipe--amber { background: color-mix(in srgb, #ffb94d 35%, white); }
+  .vitrine-recipe__tag {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 0 0 0.65rem;
+    opacity: 0.8;
+  }
+  .vitrine-recipe__title {
+    font-family: var(--vitrine-font-title);
+    font-size: clamp(1.25rem, 2vw, 1.45rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 0.65rem;
+  }
+  .vitrine-recipe__desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+    flex: 1;
+  }
+  .vitrine-recipe__modules {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    list-style: none;
+    padding: 0.85rem 0 0;
+    margin: 0;
+  }
+  .vitrine-recipe__modules li {
+    margin-block-start: 0;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  .vitrine-recipe__modules li + li {
+    margin-block-start: 0;
+  }
+  .vitrine-recipe__modules a,
+  .vitrine-recipe__modules span {
+    display: inline-block;
+    padding: 0.35rem 0.6rem;
+    background: rgb(255 255 255 / 0.72);
+    border-radius: 0.2rem;
+    color: inherit;
+    text-decoration: none;
+  }
+  .vitrine-recipe__modules a:hover {
+    text-decoration: underline;
+  }
+  .vitrine-recipe__link {
+    margin: 0.85rem 0 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+  .vitrine-recipe__link a { color: inherit; }
+  .vitrine-modules {
+    padding: 4rem clamp(1.5rem, 5vw, 5rem) 2rem;
+  }
+  .vitrine-modules--themes {
+    padding-top: 1.5rem;
+    padding-bottom: 4rem;
+  }
+  .vitrine-module-grid {
+    margin-bottom: 0.5rem;
+  }
+  .vitrine-module-grid .catalog-card__link {
+    padding: 0;
+  }
+  .vitrine-module-card__logo-wrap {
+    display: grid;
+    place-items: center;
+    min-height: 5.5rem;
+    padding: 1rem 1.25rem;
+    background: linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--catalog-accent) 22%, var(--lowdit-cream)),
+      color-mix(in srgb, var(--catalog-accent) 8%, white)
+    );
+  }
+  .vitrine-module-card__logo {
+    width: 3.25rem;
+    height: 3.25rem;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 6px rgb(11 37 69 / 0.12));
+  }
+  .vitrine-module-card__monogram {
+    margin: 1.25rem 1.25rem 0;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 0.75rem 0.75rem 0.75rem 0.25rem;
+    display: grid;
+    place-items: center;
+    font-family: var(--lowdit-font-logo, sans-serif);
+    font-weight: 700;
+    font-size: 1.65rem;
+    background: color-mix(in srgb, var(--catalog-accent) 22%, white);
+    color: var(--lowdit-night);
+  }
+  .vitrine-module-card__body {
+    padding: 1.15rem 1.35rem 1.25rem;
+  }
+  .vitrine-module-card__type {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--lowdit-muted);
+    margin: 0 0 0.45rem;
+    text-align: right;
+  }
+  .vitrine-module-card .catalog-card__title {
+    font-size: clamp(1.35rem, 2vw, 1.55rem);
+    font-weight: 700;
+  }
+  .vitrine-module-card .catalog-card__meta {
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+  .vitrine-module-card__cta {
+    margin: 0.85rem 0 0;
+    padding-top: 0.75rem;
+    border-top: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--lowdit-night);
+  }
+  .vitrine-module-card--soon {
+    opacity: 0.88;
+  }
+  .catalog-card__link--static {
+    cursor: default;
+    text-decoration: none;
+    color: inherit;
+  }
+  .vitrine-manifesto {
+    padding: 4rem clamp(1.5rem, 5vw, 5rem) 4.25rem;
+    margin-bottom: clamp(2rem, 5vw, 3.5rem);
+    background: color-mix(in srgb, var(--lowdit-night) 5%, var(--lowdit-cream));
+    border-top: 1px solid color-mix(in srgb, var(--lowdit-night) 10%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--lowdit-night) 8%, transparent);
+  }
+  .vitrine-manifesto__inner {
+    max-width: 52rem;
+    margin: 0 auto;
+  }
+  .vitrine-section-head--manifesto {
+    margin-bottom: 0;
+  }
+  .vitrine-section-head--manifesto .vitrine-section-head__lede {
+    max-width: 42rem;
+  }
+  .vitrine-manifesto__muted {
+    color: var(--lowdit-muted);
+    font-weight: 600;
+  }
+  .vitrine-manifesto__actions {
+    margin: 1.75rem 0 0;
+  }
+  .vitrine-site-footer {
+    margin-top: 0;
+    padding: 1.75rem clamp(1.5rem, 5vw, 5rem) 2rem;
+    background: var(--lowdit-cream);
+    border-top: 1px solid color-mix(in srgb, var(--lowdit-night) 12%, transparent);
+    font-size: 0.92rem;
+    color: var(--lowdit-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .vitrine-site-footer a { font-weight: 700; color: var(--lowdit-night); }
+  @media (max-width: 720px) {
+    .vitrine-manifesto { padding-block: 3.25rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .catalog-card { transition: none; }
+  }
+</style>

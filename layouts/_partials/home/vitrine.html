@@ -1,0 +1,83 @@
+{{ partial "vitrine/styles.html" . }}
+{{ partial "catalog/styles.html" . }}
+
+<section class="vitrine-hero" aria-labelledby="vitrine-hero-title">
+  <div class="vitrine-hero__inner">
+    <p class="vitrine-hero__eyebrow">{{ site.Params.lowdit.homeEyebrow }}</p>
+    <h1 id="vitrine-hero-title">{{ .Title }}</h1>
+    {{ with .Description }}<p class="vitrine-hero__lead">{{ . }}</p>{{ end }}
+    <div class="vitrine-hero__actions">
+      <a class="minigo-btn minigo-btn--primary" href="#moteurs">Découvrir les moteurs</a>
+      <a class="vitrine-hero__ghost" href="#exemples">Voir des exemples</a>
+    </div>
+  </div>
+</section>
+
+{{ with .Content }}
+<section class="vitrine-intro" aria-label="Promesse Lowdit">
+  <div class="vitrine-intro__text">{{ . }}</div>
+</section>
+{{ end }}
+
+<section class="vitrine-recipes" id="exemples" aria-labelledby="vitrine-recipes-title">
+  <header class="vitrine-section-head">
+    <p class="vitrine-section-head__eyebrow">Des expériences à imaginer</p>
+    <h2 id="vitrine-recipes-title">Ce qu’on peut faire avec Lowdit</h2>
+    <p class="vitrine-section-head__lede">Partez d’un besoin concret. Voyez l’expérience, puis les briques qui la rendent possible.</p>
+  </header>
+  <div class="vitrine-recipe-grid">
+    {{- range site.Data.recipes -}}
+    <article class="vitrine-recipe vitrine-recipe--{{ .tone }}">
+      <p class="vitrine-recipe__tag">{{ .tag }}</p>
+      <h3 class="vitrine-recipe__title">{{ .title }}</h3>
+      <p class="vitrine-recipe__desc">{{ .description }}</p>
+      <ul class="vitrine-recipe__modules" aria-label="Briques utilisées">
+        {{- range .modules -}}
+          {{- $demo := index site.Data.demos . -}}
+        <li>
+          {{- if $demo -}}
+          <a href="{{ $demo }}" target="_blank" rel="noopener noreferrer">{{ . }}</a>
+          {{- else -}}
+          <span>{{ . }}</span>
+          {{- end -}}
+        </li>
+        {{- end -}}
+      </ul>
+      {{- with .link -}}
+      <p class="vitrine-recipe__link"><a href="{{ . }}">Voir un exemple <span aria-hidden="true">↗</span></a></p>
+      {{- end -}}
+    </article>
+    {{- end -}}
+  </div>
+</section>
+
+<section class="vitrine-modules" id="modules" aria-labelledby="vitrine-moteurs-title">
+  <header class="vitrine-section-head vitrine-section-head--light">
+    <p class="vitrine-section-head__eyebrow">Moteurs</p>
+    <h2 id="vitrine-moteurs-title">Formats de sortie et outils métier</h2>
+    <p class="vitrine-section-head__lede">Sligo, Repogo, Resugo, Fromago, Frago — chaque carte ouvre une <strong>démonstration en ligne</strong>, pas le dépôt GitHub.</p>
+  </header>
+  {{ partial "vitrine/module-grid.html" (dict "items" site.Data.modules.moteurs "gridId" "moteurs") }}
+</section>
+
+<section class="vitrine-modules vitrine-modules--themes" id="themes" aria-labelledby="vitrine-themes-title">
+  <header class="vitrine-section-head vitrine-section-head--light">
+    <p class="vitrine-section-head__eyebrow">Thèmes Hugo</p>
+    <h2 id="vitrine-themes-title">Coques pour assembler un site</h2>
+    <p class="vitrine-section-head__lede">Minigo et Higo habillent le contenu ; les moteurs ci-dessus ajoutent slides, PDF, formulaires ou restitution d’audit.</p>
+  </header>
+  {{ partial "vitrine/module-grid.html" (dict "items" site.Data.modules.themes) }}
+</section>
+
+<section class="vitrine-manifesto" aria-labelledby="vitrine-manifesto-title">
+  <div class="vitrine-manifesto__inner">
+    <header class="vitrine-section-head vitrine-section-head--manifesto">
+      <p class="vitrine-section-head__eyebrow">La philosophie Lowdit</p>
+      <h2 id="vitrine-manifesto-title">Des outils ouverts.<br><span class="vitrine-manifesto__muted">Du travail qui reste à vous.</span></h2>
+      <p class="vitrine-section-head__lede">Des contenus en fichiers simples. Des sites statiques. Des briques qui peuvent vivre ensemble — ou chacune de leur côté.</p>
+    </header>
+    <p class="vitrine-manifesto__actions">
+      <a class="minigo-btn minigo-btn--primary" href="https://github.com/lowdit">Code et projets sur GitHub <span aria-hidden="true">↗</span></a>
+    </p>
+  </div>
+</section>

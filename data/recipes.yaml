@@ -1,0 +1,28 @@
+- id: course
+  tag: Transmettre
+  title: "Un cours complet, du document aux slides."
+  description: "Un catalogue rassemble les ressources, le rapport détaille le cours et Sligo anime la séance."
+  modules: [Minigo, Repogo, Sligo]
+  tone: mint
+
+- id: audit
+  tag: Restituer
+  title: "Des indicateurs au rapport partagé."
+  description: "Frago structure la synthèse. Repogo met les résultats en forme pour le PDF."
+  modules: [Frago, Repogo]
+  tone: coral
+
+- id: publish
+  tag: Explorer
+  title: "Un catalogue qui donne envie d’explorer."
+  description: "Reliez articles, ressources et projets dans un site éditorial, avec des portes d’entrée claires."
+  modules: [Minigo, Higo]
+  tone: violet
+
+- id: feedback
+  tag: Recueillir
+  title: "Un retour d’expérience facile à réutiliser."
+  description: "Fromago collecte les réponses et les envoie vers le dépôt configuré pour le projet."
+  modules: [Fromago]
+  tone: amber
+  link: https://lowdit.github.io/fromago/fr/

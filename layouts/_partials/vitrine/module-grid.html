@@ -1,0 +1,31 @@
+{{/* Dict: items (slice), gridId (string, optional) */}}
+<div class="catalog-grid vitrine-module-grid"{{ with .gridId }} id="{{ . }}"{{ end }}>
+  {{- range .items -}}
+    {{- $soon := .soon | default false -}}
+    <article class="catalog-card vitrine-module-card{{ if $soon }} vitrine-module-card--soon{{ end }}" style="--catalog-accent: {{ .accent }};">
+      {{- if and .demo_url (not $soon) -}}
+      <a class="catalog-card__link" href="{{ .demo_url }}" target="_blank" rel="noopener noreferrer">
+      {{- else -}}
+      <div class="catalog-card__link catalog-card__link--static" aria-disabled="true">
+      {{- end -}}
+        {{- if .logo -}}
+        <div class="vitrine-module-card__logo-wrap">
+          <img class="vitrine-module-card__logo" src="{{ .logo }}" alt="" width="56" height="56" loading="lazy" decoding="async">
+        </div>
+        {{- else if .monogram -}}
+        <div class="vitrine-module-card__monogram" aria-hidden="true">{{ .monogram }}</div>
+        {{- end -}}
+        <div class="catalog-card__body vitrine-module-card__body">
+          <p class="vitrine-module-card__type">{{ .type }}</p>
+          <h2 class="catalog-card__title">{{ .name }}</h2>
+          <p class="catalog-card__meta">{{ .description }}</p>
+          <p class="vitrine-module-card__cta">{{ .cta }}{{ if and .demo_url (not $soon) }} <span aria-hidden="true">↗</span>{{ end }}</p>
+        </div>
+      {{- if and .demo_url (not $soon) -}}
+      </a>
+      {{- else -}}
+      </div>
+      {{- end -}}
+    </article>
+  {{- end -}}
+</div>

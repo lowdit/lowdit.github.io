@@ -1,0 +1,15 @@
+{{ define "head" }}
+  {{- if site.Params.lowdit.vitrineHeaderMotion | default true -}}
+    {{- with resources.Get "css/vitrine-header-motion.css" -}}
+  <link rel="stylesheet" href="{{ .RelPermalink }}">
+    {{- end -}}
+  {{- end -}}
+{{ end }}
+
+{{ define "main" }}
+  {{ partial "home/vitrine.html" . }}
+{{ end }}
+
+{{ define "footer" }}
+  {{ partial "vitrine/footer.html" . }}
+{{ end }}

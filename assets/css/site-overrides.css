@@ -1,0 +1,48 @@
+/* Vitrine org — extension Minigo / tokens Brand (lowdit-site) */
+
+:root {
+  /* Accroches vitrine : Atkinson (lisible, moins rigide que Subjectivity sur longues lignes). */
+  --vitrine-font-title: var(--lowdit-font-reading, "Atkinson Hyperlegible", system-ui, sans-serif);
+}
+
+.minigo--view-catalog .minigo-main {
+  max-width: none;
+  padding: 0;
+  font-size: 1.0625rem;
+}
+
+.minigo--view-catalog .minigo-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: color-mix(in srgb, var(--lowdit-cream) 92%, white);
+  backdrop-filter: blur(8px);
+}
+
+.minigo--view-catalog .minigo-header__inner {
+  max-width: 90rem;
+  margin-inline: auto;
+}
+
+.minigo--view-catalog .minigo-nav a {
+  font-size: 0.95rem;
+}
+
+.minigo--home.minigo--view-catalog .minigo-page-header {
+  display: none;
+}
+
+.minigo-btn {
+  font-size: 0.95rem;
+  padding: 0.65rem 1.1rem;
+}
+
+.minigo-btn--primary {
+  background: var(--lowdit-turquoise);
+  color: var(--lowdit-night);
+  border-color: transparent;
+}
+
+.minigo-btn--primary:hover {
+  background: color-mix(in srgb, var(--lowdit-turquoise) 88%, white);
+}

@@ -1,0 +1,7 @@
+{{- $view := partial "lowdit/resolve-view.html" . -}}
+{{- $classes := slice -}}
+{{- if $view -}}{{- $classes = $classes | append (printf "minigo--view-%s" $view) -}}{{- end -}}
+{{- if and .IsHome (site.Params.lowdit.vitrineHeaderMotion | default true) -}}
+  {{- $classes = $classes | append "vitrine-header-motion-on" -}}
+{{- end -}}
+{{- if gt (len $classes) 0 -}}{{ delimit $classes " " }}{{- end -}}

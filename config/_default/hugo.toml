@@ -1,0 +1,40 @@
+baseURL = ""
+title = "Lowdit"
+defaultContentLanguage = "fr"
+theme = "minigo"
+
+[params]
+  description = "Des modules ouverts pour concevoir, documenter et partager des projets numériques utiles."
+
+[params.lowdit]
+  logo = "logos/lowdit.png"
+  faviconDir = "favicons/lowdit"
+  siteProfile = "hub"
+  view = "catalog"
+  homeEyebrow = "Écosystème d’outils ouverts"
+  listStyle = "timeline"
+  showSummary = true
+  showDate = false
+  search = ""
+  # Essai motion barre header (accueil) — false pour couper sans toucher au CSS
+  vitrineHeaderMotion = true
+
+[[menus.main]]
+  name = "Moteurs"
+  url = "/#moteurs"
+  weight = 1
+[[menus.main]]
+  name = "Thèmes"
+  url = "/#themes"
+  weight = 2
+[[menus.main]]
+  name = "Exemples"
+  url = "/#exemples"
+  weight = 3
+[[menus.main]]
+  name = "GitHub"
+  url = "https://github.com/lowdit"
+  weight = 4
+
+[markup.goldmark.renderer]
+  unsafe = true

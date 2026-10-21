@@ -1,25 +1,54 @@
-# Lowdit — site vitrine
+# Lowdit — vitrine (marque)
 
-Site statique léger pour présenter l’univers Lowdit et ses modules. Il ne demande ni générateur ni dépendance : `index.html`, `styles.css` et `assets/` suffisent.
+Site Hugo **Minigo + tokens Brand** : une seule base éditoriale pour [lowdit.github.io](https://lowdit.github.io/). Les modules restent sur leurs démos Pages ; cette vitrine les relie.
 
-## Prévisualiser
+## Motion header (essai)
 
-Ouvrir `index.html` dans un navigateur.
+Accueil uniquement : filet turquoise animé + pastille discrète. Désactiver :
 
-## Publier avec GitHub Pages
+```toml
+# config/_default/hugo.toml
+[params.lowdit]
+  vitrineHeaderMotion = false
+```
 
-Créer un dépôt GitHub pour ce projet, y déposer le contenu de ce dossier, puis choisir **Deploy from a branch** dans **Settings → Pages** et sélectionner la branche principale avec le dossier `/ (root)`. Le site est servi directement depuis ces fichiers.
+Revert complet : supprimer `assets/css/vitrine-header-motion.css`, le block `head` dans `layouts/index.html`, et la ligne dans `view-body-class.html`.
 
-Les liens de modules pointent vers les dépôts Lowdit. Les descriptions des modules de travail en cours restent formulées comme une intention ou un outil en construction.
+## Développer
 
-## Périmètre et sites des modules
+```bash
+cd lowdit-site
+hugo server   # thème local : themes/minigo → ../minigo
+```
 
-La vitrine publique ne présente que les modules Lowdit : Sligo, Frago, Repogo, Fromago, Minigo, Resugo et Higo. Les autres projets de l’écosystème restent hors de ce catalogue.
+## Build production (Pages org)
 
-Chaque module doit à terme avoir son propre site public, hébergé sur GitHub Pages. La vitrine Lowdit renverra alors vers la page d’accueil du site du module une fois l’URL vérifiée. État lot 1 (Sligo, Repogo, Resugo, Fromago) : [LOT-1-GITHUB-PAGES.md](docs/LOT-1-GITHUB-PAGES.md). Plan général : [PLAN-SITES-MODULES.md](docs/PLAN-SITES-MODULES.md).
+```bash
+./scripts/hugo-pages-build.sh "https://lowdit.github.io/"
+```
 
-La vitrine doit d’abord montrer les expériences réalisables, puis présenter les modules qui les composent. La démarche UX, les constats sur les modules et les critères de revue sont consignés dans [DEMARCHE-UX.md](docs/DEMARCHE-UX.md).
+CI : `.github/workflows/gh-pages.yml` — Hugo **0.167** extended. Activer **Settings → Pages → GitHub Actions** sur le dépôt `lowdit.github.io`.
 
-La direction graphique est définie dans [DESIGN.md](DESIGN.md). Les références anti-slop, taste-skill, Hallmark, Agent Skills et GSAP y sont traitées comme des méthodes à adapter, sans ajout automatique de dépendances.
+## Contenu
 
-Pour le lancement de la gamme, l’ordre de réalisation et les prompts d’installation IA, voir [PLAN-GAMME-PRODUIT.md](docs/PLAN-GAMME-PRODUIT.md).
+| Élément | Rôle |
+| --- | --- |
+| `content/_index.md` | Accroche et intro |
+| `data/modules.yaml` | Cartes modules (URL démo + dépôt) |
+| `data/recipes.yaml` | Exemples d’assemblage |
+| `layouts/` | Accueil vitrine (coque Minigo) |
+| `assets/css/site-overrides.css` | Extension marque |
+| `static/logos/` | Logos tuiles (Pages statiques) |
+| `assets/logos/` + `assets/favicons/lowdit/` | Header + favicons (Minigo `resources.Get`) — regénérer depuis Brand : `cp lowdit-brand/logos/lowdit/favicons/* assets/favicons/lowdit/` et `lowdit-mark.png` → `assets/logos/lowdit.png` |
+
+La vitrine HTML statique v1 est archivée dans `legacy-v1-html/`.
+
+## Doc produit
+
+- [PLAN-SITES-MODULES.md](docs/PLAN-SITES-MODULES.md)
+- [LOT-1-GITHUB-PAGES.md](docs/LOT-1-GITHUB-PAGES.md)
+- [DESIGN.md](DESIGN.md) · [lowdit-brand/brand/VUES-PREMIUM.md](../lowdit-brand/brand/VUES-PREMIUM.md)
+
+## Publier sur `lowdit.github.io`
+
+Le dépôt GitHub **lowdit/lowdit.github.io** reçoit une copie de ce dossier (sans `docs/`, `legacy-v1-html/`, `public/`). En local, `go.mod` utilise `replace` vers `../minigo` ; sur GitHub, retirer le `replace` avant push ou laisser la CI résoudre `github.com/lowdit/minigo`.

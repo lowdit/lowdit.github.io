@@ -1,0 +1,68 @@
+# kind: moteur = Sligo, Repogo, Resugo, Fromago, Frago · theme = coque Hugo (Minigo, Higo)
+# Liens carte = démonstration uniquement (pas de dépôt sur la tuile).
+
+moteurs:
+  - id: sligo
+    name: Sligo
+    type: Présentations
+    description: Des présentations web vivantes pour formations, comités et prises de parole.
+    accent: "#5B3DF5"
+    logo: /logos/sligo-mark.png
+    demo_url: https://lowdit.github.io/sligo/
+    cta: Voir la démonstration
+
+  - id: repogo
+    name: Repogo
+    type: Rapports PDF
+    description: Transformez des contenus web en rapports prêts à archiver ou à partager en PDF.
+    accent: "#2F6BFF"
+    logo: /logos/repogo-mark.png
+    demo_url: https://lowdit.github.io/repogo/
+    cta: Voir la démonstration
+
+  - id: resugo
+    name: Resugo
+    type: CV et candidatures
+    description: CV et lettres conçus comme des contenus web, avec rendu imprimable.
+    accent: "#4B9B57"
+    logo: /logos/resugo-mark.png
+    demo_url: https://lowdit.github.io/resugo/
+    cta: Voir la démonstration
+
+  - id: fromago
+    name: Fromago
+    type: Enquêtes et formulaires
+    description: Créez des enquêtes ; selon la configuration, les réponses partent vers le dépôt du projet.
+    accent: "#FFB94D"
+    logo: /logos/fromago-mark.png
+    demo_url: https://lowdit.github.io/fromago/fr/
+    cta: Voir la démonstration
+
+  - id: frago
+    name: Frago
+    type: Audits et indicateurs
+    description: Restitutions structurées pour suivre des audits et partager des indicateurs.
+    accent: "#FF5B5B"
+    logo: /logos/frago-mark.png
+    demo_url: https://lowdit.github.io/frago/docs/
+    cta: Voir la démonstration
+
+themes:
+  - id: minigo
+    name: Minigo
+    type: Coque catalogue
+    description: Base Hugo sobre pour cataloguer des documents et relier leurs formats.
+    accent: "#5B3DF5"
+    monogram: m
+    demo_url: https://lowdit.github.io/minigo/
+    cta: Voir la démonstration
+
+  - id: higo
+    name: Higo
+    type: Site éditorial
+    description: Thème Hugo pour publier articles, ressources et projets au fil du temps.
+    accent: "#2F6BFF"
+    monogram: h
+    demo_url: ""
+    cta: Démonstration à venir
+    soon: true
