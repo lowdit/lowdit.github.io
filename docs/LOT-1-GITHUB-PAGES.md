@@ -46,6 +46,6 @@ bin/test-hugo-sites sligo   # idem repogo, resugo, fromago
 ## Prochaines actions (humain, hors scope auto)
 
 - **Vitrine** : publier le contenu de `lowdit-site/` dans `lowdit.github.io` ; **Settings → Pages → Deploy from branch → main / (root)**.
-- **Lot 2** : Minigo, Higo — NEXT séparé ou extension lot 1.
+- **Lot 2** : Minigo est publié ; **Higo** n’aura pas de démo Pages (décision 2026-10-21). Aucun NEXT lot 2 restant.
 
 Pas de commit / push / tag dans cette session sans accord explicite.

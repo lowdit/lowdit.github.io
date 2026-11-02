@@ -172,7 +172,7 @@ Vérifie localement le build et les liens. Ne publie pas GitHub Pages et ne fais
 2. **Minigo + Repogo** : prouver catalogue, lecture web et sortie PDF dans une même expérience ; cela répond directement au besoin de rendre ces sorties plus soignées.
 3. **Sligo** : améliorer le catalogue de présentations et montrer un vrai deck, pas une simple liste.
 4. **Resugo** : associer une donnée de CV à une présentation web et à son rendu d’impression.
-5. **Frago et Higo** : compléter la galerie avec une restitution d’audit et un parcours éditorial réels.
+5. **Frago et Higo** : pas de site dédié (décision 2026-10-21) — la doc Frago et `/frago/audits/` tiennent la démonstration ; Higo est documenté par son dépôt.
 
 Cet ordre optimise la compréhension et la preuve du produit ; il ne modifie pas les feuilles de route de chaque dépôt.
 

@@ -62,8 +62,7 @@ coques:
     name: Higo
     type: Site éditorial
     description: Thème Hugo pour publier articles, ressources et projets au fil du temps.
-    accent: "#2F6BFF"
+    accent: "#14C6B1"
     monogram: h
-    demo_url: ""
-    cta: Démonstration à venir
-    soon: true
+    demo_url: https://lowdit.github.io/higo/
+    cta: Voir la démonstration
