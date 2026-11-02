@@ -26,6 +26,8 @@ Règle [`PLAN-SITES-MODULES.md`](PLAN-SITES-MODULES.md) : ne basculer une carte 
 
 Détail kit : [`../../lowdit-brand/docs/GITHUB-PAGES-LOWDIT.md`](../../lowdit-brand/docs/GITHUB-PAGES-LOWDIT.md).
 
+Procédure CLI complète (sync Brand, tags, push) : [`../../lowtech-dev-method/docs/PROCEDURE-PUBLICATION-VITRINE-LOT1.md`](../../lowtech-dev-method/docs/PROCEDURE-PUBLICATION-VITRINE-LOT1.md).
+
 ## Contrôles locaux (session 2026-10-21)
 
 ```bash
