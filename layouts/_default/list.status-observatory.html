@@ -1,0 +1,92 @@
+{{ define "main" }}
+{{ $snap := site.Data.status.latest }}
+<article class="lowdit-product status-observatory">
+  <header class="minigo-hero">
+    <p class="minigo-hero__eyebrow">Observatoire · signaux</p>
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="minigo-hero__lead">{{ . }}</p>{{ end }}
+  </header>
+
+  {{ with $snap.disclaimer }}
+  <p class="status-observatory__disclaimer"><strong>Limites :</strong> {{ . }}</p>
+  {{ end }}
+
+  {{ with $snap.runAt }}
+  <p class="status-observatory__meta">Dernier run : <time datetime="{{ . }}">{{ . }}</time>
+    {{ with $snap.formFactor }} · profil {{ . }}{{ end }}
+    {{ with $snap.reproduce }} · <code>{{ . }}</code>{{ end }}
+  </p>
+  {{ end }}
+
+  {{ with $snap.host }}
+  <section aria-labelledby="status-host-heading">
+    <h2 id="status-host-heading">Site hôte ({{ .label | default "lowdit-site" }})</h2>
+    <p>Build Hugo : <strong>{{ .build }}</strong></p>
+    {{ with .checks }}
+    <ul>
+      {{ range . }}
+      <li><code>{{ .path }}</code> — HTTP {{ if .httpOk }}OK{{ else }}échec{{ end }}</li>
+      {{ end }}
+    </ul>
+    {{ end }}
+    {{ with .lighthouse }}
+    <h3>Lighthouse · /status/</h3>
+    {{ if .error }}
+    <p>{{ .error }}</p>
+    {{ else }}
+    <table class="status-observatory__table">
+      <thead><tr><th>Perf</th><th>A11y auto</th><th>SEO</th><th>BP</th><th>LCP</th><th>CLS</th><th>TBT</th></tr></thead>
+      <tbody><tr>
+        <td>{{ .performance }}</td><td>{{ .accessibility }}</td><td>{{ .seo }}</td><td>{{ .bestPractices }}</td>
+        <td>{{ .lcp }}</td><td>{{ .cls }}</td><td>{{ .tbt }}</td>
+      </tr></tbody>
+    </table>
+    {{ end }}
+    {{ end }}
+    {{ with .axe }}
+    <p>axe-core : {{ .violations }} violations · {{ .incomplete }} incomplete · {{ .passes }} passes</p>
+    {{ end }}
+  </section>
+  {{ end }}
+
+  {{ with $snap.targets }}
+  <section aria-labelledby="status-demos-heading">
+    <h2 id="status-demos-heading">Démos lot 1 (GitHub Pages)</h2>
+    <table class="status-observatory__table">
+      <thead>
+        <tr>
+          <th scope="col">Module</th>
+          <th scope="col">HTTP</th>
+          <th scope="col">Perf</th>
+          <th scope="col">A11y</th>
+          <th scope="col">SEO</th>
+          <th scope="col">axe viol.</th>
+          <th scope="col">URL</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{ range . }}
+        <tr>
+          <th scope="row">{{ .label }}</th>
+          <td>{{ if .httpOk }}OK{{ else }}—{{ end }}</td>
+          {{ with .lighthouse }}
+          <td>{{ .performance | default "—" }}</td>
+          <td>{{ .accessibility | default "—" }}</td>
+          <td>{{ .seo | default "—" }}</td>
+          {{ else }}
+          <td>—</td><td>—</td><td>—</td>
+          {{ end }}
+          {{ with .axe }}<td>{{ .violations | default "—" }}</td>{{ else }}<td>—</td>{{ end }}
+          <td><a href="{{ .url }}">{{ .url }}</a></td>
+        </tr>
+        {{ end }}
+      </tbody>
+    </table>
+  </section>
+  {{ end }}
+
+  <section class="status-observatory__prose">
+    {{ .Content }}
+  </section>
+</article>
+{{ end }}

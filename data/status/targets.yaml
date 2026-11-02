@@ -1,0 +1,28 @@
+host:
+  label: "lowdit-site (vitrine)"
+  siteDir: "lowdit-site"
+  localPaths:
+    - "/"
+    - "/status/"
+
+targets:
+  - id: sligo
+    label: "Sligo"
+    kind: hugo-module-demo
+    url: "https://lowdit.github.io/sligo/"
+    enabled: true
+  - id: repogo
+    label: "Repogo"
+    kind: hugo-module-demo
+    url: "https://lowdit.github.io/repogo/"
+    enabled: true
+  - id: resugo
+    label: "Resugo"
+    kind: hugo-module-demo
+    url: "https://lowdit.github.io/resugo/"
+    enabled: true
+  - id: fromago
+    label: "Fromago"
+    kind: hugo-module-demo
+    url: "https://lowdit.github.io/fromago/fr/"
+    enabled: true
