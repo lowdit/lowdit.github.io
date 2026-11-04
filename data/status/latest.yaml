@@ -1,8 +1,8 @@
 ---
-runAt: '2026-11-02T14:13:30Z'
+runAt: '2026-11-02T14:36:50Z'
 hugoVersion: hugo v0.167.0+extended+withdeploy darwin/arm64 BuildDate=2026-09-28T14:50:38Z
   VendorInfo=Homebrew
-gitSha: 3b10b5c
+gitSha: 7fa90e3
 formFactor: mobile
 disclaimer: Signaux automatisés (Lighthouse, axe-core, HTTP) — pas audit RGAA/WCAG,
   pas score Opquast, pas promesse SEO.
@@ -17,24 +17,67 @@ host:
   - path: "/status/"
     url: http://127.0.0.1:9788/status/
     httpOk: true
+  lighthouse:
+    performance: 82
+    accessibility: 96
+    seo: 100
+    bestPractices: 100
+    lcp: 1.6 s
+    cls: '0.35'
+    tbt: 0 ms
 targets:
 - id: sligo
   label: Sligo
   kind: hugo-module-demo
   url: https://lowdit.github.io/sligo/
   httpOk: true
+  lighthouse:
+    performance: 99
+    accessibility: 96
+    seo: 100
+    bestPractices: 100
+    lcp: 1.5 s
+    cls: '0'
+    tbt: 0 ms
 - id: repogo
   label: Repogo
   kind: hugo-module-demo
   url: https://lowdit.github.io/repogo/
   httpOk: true
+  lighthouse:
+    performance: 100
+    accessibility: 96
+    seo: 100
+    bestPractices: 100
+    lcp: 1.1 s
+    cls: '0.011'
+    tbt: 0 ms
 - id: resugo
   label: Resugo
   kind: hugo-module-demo
   url: https://lowdit.github.io/resugo/
   httpOk: true
+  lighthouse:
+    performance: 99
+    accessibility: 100
+    seo: 100
+    bestPractices: 100
+    lcp: 1.5 s
+    cls: '0'
+    tbt: 0 ms
 - id: fromago
   label: Fromago
   kind: hugo-module-demo
   url: https://lowdit.github.io/fromago/fr/
   httpOk: true
+  lighthouse:
+    performance: 99
+    accessibility: 100
+    seo: 100
+    bestPractices: 100
+    lcp: 1.4 s
+    cls: '0'
+    tbt: 0 ms
+scoresFromRuns: true
+scoresNote: Scores Lighthouse lus depuis data/status/runs/ (cache local). Relancer
+  ./lowdit-site/scripts/status-collect.sh sans --quick pour mesure fraîche.

@@ -1,8 +1,17 @@
+{{ define "head" }}
+<link rel="stylesheet" href="{{ "assets/css/views/status-observatory.css" | relURL }}">
+{{ end }}
+
 {{ define "main" }}
 {{ $snap := site.Data.status.latest }}
+{{ $targets := $snap.targets | default slice }}
+{{ $hasLh := false }}
+{{ range $targets }}{{ with .lighthouse }}{{ $hasLh = true }}{{ end }}{{ end }}
+{{ with $snap.host.lighthouse }}{{ $hasLh = true }}{{ end }}
+
 <article class="lowdit-product status-observatory">
-  <header class="minigo-hero">
-    <p class="minigo-hero__eyebrow">Observatoire · signaux</p>
+  <header class="minigo-hero minigo-hero--signature">
+    <p class="minigo-hero__eyebrow">Observatoire · lignée Lowtus</p>
     <h1>{{ .Title }}</h1>
     {{ with .Description }}<p class="minigo-hero__lead">{{ . }}</p>{{ end }}
   </header>
@@ -12,80 +21,192 @@
   {{ end }}
 
   {{ with $snap.runAt }}
-  <p class="status-observatory__meta">Dernier run : <time datetime="{{ . }}">{{ . }}</time>
-    {{ with $snap.formFactor }} · profil {{ . }}{{ end }}
-    {{ with $snap.reproduce }} · <code>{{ . }}</code>{{ end }}
+  <p class="status-observatory__meta">
+    Dernier run : <time datetime="{{ . }}">{{ . }}</time>
+    {{ with $snap.formFactor }} · profil Lighthouse <strong>{{ . }}</strong>{{ end }}
+    {{ with $snap.gitSha }} · git <code class="status-observatory__code-inline">{{ . }}</code>{{ end }}
   </p>
+  {{ end }}
+
+  {{ if not $hasLh }}
+  <div class="status-observatory__alert" role="status">
+    <p><strong>Aucun score Lighthouse dans ce snapshot.</strong> Lancer une collecte complète (sans <code>--quick</code>) ou conserver des JSON dans <code>data/status/runs/</code>.</p>
+    <pre class="status-observatory__pre"><code>./lowdit-site/scripts/status-collect.sh</code></pre>
+  </div>
+  {{ else if $snap.scoresNote }}
+  <p class="status-observatory__cache-note">{{ $snap.scoresNote }}</p>
+  {{ end }}
+
+  <section class="status-observatory__kpis" aria-labelledby="status-kpi-heading">
+    <h2 id="status-kpi-heading" class="visually-hidden">Synthèse des signaux</h2>
+    <ul class="status-observatory__kpi-grid">
+      <li class="status-observatory__kpi">
+        <span class="status-observatory__kpi-label">Modules HTTP OK</span>
+        <span class="status-observatory__kpi-value">{{ len (where $targets "httpOk" true) }}<span class="status-observatory__kpi-denom">/{{ len $targets }}</span></span>
+      </li>
+      <li class="status-observatory__kpi">
+        <span class="status-observatory__kpi-label">Build vitrine</span>
+        <span class="status-observatory__kpi-value status-observatory__kpi-value--text">{{ $snap.host.build | default "—" }}</span>
+      </li>
+      <li class="status-observatory__kpi">
+        <span class="status-observatory__kpi-label">Démos avec Lighthouse</span>
+        <span class="status-observatory__kpi-value">
+          {{- $lhN := 0 -}}
+          {{- range $targets -}}{{- with .lighthouse.performance -}}{{- $lhN = add $lhN 1 -}}{{- end -}}{{- end -}}
+          {{- $lhN -}}<span class="status-observatory__kpi-denom">/{{ len $targets }}</span>
+        </span>
+      </li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="status-verify-heading">
+    <h2 id="status-verify-heading">Vérifications reproductibles</h2>
+    <p class="status-observatory__section-lead">Commandes et contrôles documentés — signaux, pas certification.</p>
+    <div class="status-observatory__table-wrap">
+      <table class="status-observatory__table status-observatory__table--verify">
+        <thead>
+          <tr>
+            <th scope="col">Contrôle</th>
+            <th scope="col">Résultat</th>
+            <th scope="col">Comment rejouer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Build Hugo (lowdit-site)</th>
+            <td>
+              {{ if eq ($snap.host.build | default "") "ok" }}
+                <span class="status-pill status-pill--ok">OK</span>
+              {{ else }}
+                <span class="status-pill status-pill--fail">{{ $snap.host.build | default "—" }}</span>
+              {{ end }}
+            </td>
+            <td><code class="status-observatory__code-inline">cd lowdit-site && hugo build</code></td>
+          </tr>
+          {{ with $snap.host.checks }}
+          {{ range . }}
+          <tr>
+            <th scope="row">HTTP {{ .path }}</th>
+            <td>
+              {{ if .httpOk }}<span class="status-pill status-pill--ok">200</span>{{ else }}<span class="status-pill status-pill--fail">échec</span>{{ end }}
+            </td>
+            <td><code class="status-observatory__code-inline">{{ .url }}</code></td>
+          </tr>
+          {{ end }}
+          {{ end }}
+          {{ range $targets }}
+          <tr>
+            <th scope="row">{{ .label }} · HTTP public</th>
+            <td>
+              {{ if .httpOk }}<span class="status-pill status-pill--ok">OK</span>{{ else }}<span class="status-pill status-pill--fail">—</span>{{ end }}
+            </td>
+            <td><a href="{{ .url }}">{{ .url }}</a></td>
+          </tr>
+          {{ end }}
+          <tr>
+            <th scope="row">Contrat SEO &lt;head&gt; (lot modules)</th>
+            <td><span class="status-pill status-pill--manual">manuel</span></td>
+            <td><code class="status-observatory__code-inline">hs test seo modules</code></td>
+          </tr>
+          <tr>
+            <th scope="row">Collecte observatoire</th>
+            <td><span class="status-pill status-pill--manual">script</span></td>
+            <td><code class="status-observatory__code-inline">{{ $snap.reproduce | default "lowdit-site/scripts/status-collect.sh" }}</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  {{ with $snap.targets }}
+  <section aria-labelledby="status-demos-heading">
+    <h2 id="status-demos-heading">Scores Lighthouse · démos lot 1</h2>
+    <p class="status-observatory__section-lead">Catégories 0–100 (mobile par défaut). Métriques labo en dessous du seuil.</p>
+    <div class="status-observatory__table-wrap">
+      <table class="status-observatory__table status-observatory__table--scores">
+        <caption class="visually-hidden">Modules Repogo, Sligo, Resugo, Fromago</caption>
+        <thead>
+          <tr>
+            <th scope="col">Module</th>
+            <th scope="col">HTTP</th>
+            <th scope="col">Perf</th>
+            <th scope="col">A11y</th>
+            <th scope="col">SEO</th>
+            <th scope="col">BP</th>
+            <th scope="col">LCP</th>
+            <th scope="col">CLS</th>
+            <th scope="col">TBT</th>
+            <th scope="col">URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{ range . }}
+          <tr>
+            <th scope="row">{{ .label }}</th>
+            <td>{{ if .httpOk }}<span class="status-pill status-pill--ok">OK</span>{{ else }}<span class="status-pill status-pill--fail">—</span>{{ end }}</td>
+            {{ with .lighthouse }}
+            <td>{{ partial "status/score-badge.html" (dict "value" .performance) }}</td>
+            <td>{{ partial "status/score-badge.html" (dict "value" .accessibility) }}</td>
+            <td>{{ partial "status/score-badge.html" (dict "value" .seo) }}</td>
+            <td>{{ partial "status/score-badge.html" (dict "value" .bestPractices) }}</td>
+            <td><span class="status-metric">{{ .lcp | default "—" }}</span></td>
+            <td><span class="status-metric">{{ .cls | default "—" }}</span></td>
+            <td><span class="status-metric">{{ .tbt | default "—" }}</span></td>
+            {{ else }}
+            <td colspan="7"><span class="status-score status-score--na">Lighthouse non mesuré</span></td>
+            {{ end }}
+            <td class="status-observatory__url"><a href="{{ .url }}">{{ .url }}</a></td>
+          </tr>
+          {{ end }}
+        </tbody>
+      </table>
+    </div>
+  </section>
   {{ end }}
 
   {{ with $snap.host }}
   <section aria-labelledby="status-host-heading">
-    <h2 id="status-host-heading">Site hôte ({{ .label | default "lowdit-site" }})</h2>
-    <p>Build Hugo : <strong>{{ .build }}</strong></p>
-    {{ with .checks }}
-    <ul>
-      {{ range . }}
-      <li><code>{{ .path }}</code> — HTTP {{ if .httpOk }}OK{{ else }}échec{{ end }}</li>
-      {{ end }}
-    </ul>
-    {{ end }}
+    <h2 id="status-host-heading">Site hôte · {{ .label | default "lowdit-site" }}</h2>
     {{ with .lighthouse }}
-    <h3>Lighthouse · /status/</h3>
     {{ if .error }}
-    <p>{{ .error }}</p>
+    <p class="status-observatory__error">{{ .error }}</p>
     {{ else }}
-    <table class="status-observatory__table">
-      <thead><tr><th>Perf</th><th>A11y auto</th><th>SEO</th><th>BP</th><th>LCP</th><th>CLS</th><th>TBT</th></tr></thead>
-      <tbody><tr>
-        <td>{{ .performance }}</td><td>{{ .accessibility }}</td><td>{{ .seo }}</td><td>{{ .bestPractices }}</td>
-        <td>{{ .lcp }}</td><td>{{ .cls }}</td><td>{{ .tbt }}</td>
-      </tr></tbody>
-    </table>
+    <div class="status-observatory__table-wrap">
+      <table class="status-observatory__table status-observatory__table--scores">
+        <caption>Lighthouse sur <code>/status/</code> (build local servi)</caption>
+        <thead>
+          <tr>
+            <th scope="col">Perf</th>
+            <th scope="col">A11y</th>
+            <th scope="col">SEO</th>
+            <th scope="col">BP</th>
+            <th scope="col">LCP</th>
+            <th scope="col">CLS</th>
+            <th scope="col">TBT</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ partial "status/score-badge.html" (dict "value" .performance) }}</td>
+            <td>{{ partial "status/score-badge.html" (dict "value" .accessibility) }}</td>
+            <td>{{ partial "status/score-badge.html" (dict "value" .seo) }}</td>
+            <td>{{ partial "status/score-badge.html" (dict "value" .bestPractices) }}</td>
+            <td><span class="status-metric">{{ .lcp | default "—" }}</span></td>
+            <td><span class="status-metric">{{ .cls | default "—" }}</span></td>
+            <td><span class="status-metric">{{ .tbt | default "—" }}</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     {{ end }}
     {{ end }}
     {{ with .axe }}
-    <p>axe-core : {{ .violations }} violations · {{ .incomplete }} incomplete · {{ .passes }} passes</p>
+    <p class="status-observatory__axe">axe-core : <strong>{{ .violations | default "—" }}</strong> violations · {{ .incomplete | default "—" }} incomplete · {{ .passes | default "—" }} passes</p>
     {{ end }}
   </section>
   {{ end }}
 
-  {{ with $snap.targets }}
-  <section aria-labelledby="status-demos-heading">
-    <h2 id="status-demos-heading">Démos lot 1 (GitHub Pages)</h2>
-    <table class="status-observatory__table">
-      <thead>
-        <tr>
-          <th scope="col">Module</th>
-          <th scope="col">HTTP</th>
-          <th scope="col">Perf</th>
-          <th scope="col">A11y</th>
-          <th scope="col">SEO</th>
-          <th scope="col">axe viol.</th>
-          <th scope="col">URL</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{ range . }}
-        <tr>
-          <th scope="row">{{ .label }}</th>
-          <td>{{ if .httpOk }}OK{{ else }}—{{ end }}</td>
-          {{ with .lighthouse }}
-          <td>{{ .performance | default "—" }}</td>
-          <td>{{ .accessibility | default "—" }}</td>
-          <td>{{ .seo | default "—" }}</td>
-          {{ else }}
-          <td>—</td><td>—</td><td>—</td>
-          {{ end }}
-          {{ with .axe }}<td>{{ .violations | default "—" }}</td>{{ else }}<td>—</td>{{ end }}
-          <td><a href="{{ .url }}">{{ .url }}</a></td>
-        </tr>
-        {{ end }}
-      </tbody>
-    </table>
-  </section>
-  {{ end }}
-
-  <section class="status-observatory__prose">
+  <section class="status-observatory__prose minigo-body">
     {{ .Content }}
   </section>
 </article>

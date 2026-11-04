@@ -1,23 +1,26 @@
 ---
 title: État des démos
-description: Signaux reproductibles (build, Lighthouse, axe-core) — transparence LowTech, sans certification.
+description: Tableau de bord des signaux reproductibles — build, HTTP, Lighthouse, commandes de vérification. Pas de certification.
 layout: status-observatory
 ---
 
-## Ce que ça ne dit pas
+Les tableaux ci-dessus sont alimentés par `data/status/latest.yaml`. En l’absence de scores, exécuter la collecte (ou fusionner des runs locaux).
 
-- Pas de conformité **RGAA** / **WCAG** ni de validation au clavier complète.
-- Les scores **Lighthouse** et **axe-core** sont des **signaux** sur un instant T (mobile par défaut).
-- Le contrat **SEO / partage** (`hs test seo`) complète le SEO Lighthouse pour le `<head>` des démos.
+## Ce que cette page ne dit pas
 
-## Commandes
+- Pas de conformité **RGAA** / **WCAG** ni parcours clavier complet.
+- **Lighthouse** et **axe-core** = signaux datés (mobile par défaut), pas audit contractuel.
+- **SEO `<head>`** : `hs test seo modules` (contrat séparé du score SEO Lighthouse).
+
+## Mettre à jour les chiffres
 
 ```bash
-# Observatoire (build hôte + mesures)
+# Collecte complète (build + HTTP + Lighthouse + axe si env OK)
 ./lowdit-site/scripts/status-collect.sh
 
-# Head SEO des exampleSites
-hs test seo modules
+# HTTP seulement (--quick) puis scores depuis runs/ déjà présents
+./lowdit-site/scripts/status-collect.sh --quick
+./lowdit-site/scripts/status-merge-runs.sh
 ```
 
-Référence méthode : [`WEB-QUALITY.md`](https://github.com/lowdit/lowtech-dev-method/blob/main/WEB-QUALITY.md) · doc site : [`docs/STATUS-OBSERVATOIRE.md`](../../docs/STATUS-OBSERVATOIRE.md).
+Ces chiffres sont des **signaux datés**, pas une certification d’accessibilité ni de conformité légale.

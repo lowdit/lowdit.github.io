@@ -1,0 +1,11 @@
+{{- $v := .value -}}
+{{- $suffix := .suffix | default "" -}}
+{{- if or (not $v) (eq $v "") -}}
+<span class="status-score status-score--na" aria-hidden="true">—</span><span class="visually-hidden">non mesuré</span>
+{{- else if ge $v 90 -}}
+<span class="status-score status-score--high">{{ $v }}{{ $suffix }}</span>
+{{- else if ge $v 50 -}}
+<span class="status-score status-score--mid">{{ $v }}{{ $suffix }}</span>
+{{- else -}}
+<span class="status-score status-score--low">{{ $v }}{{ $suffix }}</span>
+{{- end -}}

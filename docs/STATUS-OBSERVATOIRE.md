@@ -7,7 +7,12 @@ Page publique alimentée par `data/status/latest.yaml` (généré, versionné).
 ```bash
 ./scripts/status-collect.sh
 # ou --quick pour build + HTTP sans Lighthouse/axe
+
+# Si --quick a été utilisé mais des JSON existent dans data/status/runs/ :
+./scripts/status-merge-runs.sh
 ```
+
+Après chaque collecte (ou merge), `assemble.rb` **complète** automatiquement les scores manquants depuis `runs/*.json` quand c’est possible.
 
 Sources : [`lowtech-dev-method/tooling/universe-status/README.md`](../../lowtech-dev-method/tooling/universe-status/README.md).  
 Spec méthode : [`lowtech-dev-method/docs/SPEC-OUTIL-status-collect.md`](../../lowtech-dev-method/docs/SPEC-OUTIL-status-collect.md).
