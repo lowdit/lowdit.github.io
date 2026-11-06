@@ -7,8 +7,8 @@
     <h1 id="vitrine-hero-title">{{ .Title }}</h1>
     {{ with .Description }}<p class="vitrine-hero__lead">{{ . }}</p>{{ end }}
     <div class="vitrine-hero__actions">
-      <a class="minigo-btn minigo-btn--primary" href="#moteurs">Parcourir le catalogue</a>
-      <a class="vitrine-hero__ghost" href="#exemples">Voir des exemples</a>
+      <a class="minigo-btn minigo-btn--primary" href="#packs">Sites pour votre structure</a>
+      <a class="vitrine-hero__ghost" href="#referent">Référent &amp; auditeur</a>
     </div>
   </div>
 </section>
@@ -18,6 +18,48 @@
   <div class="vitrine-intro__text">{{ . }}</div>
 </section>
 {{ end }}
+
+<section class="vitrine-packs" id="packs" aria-labelledby="vitrine-packs-title">
+  <header class="vitrine-section-head">
+    <p class="vitrine-section-head__eyebrow">Sites structure</p>
+    <h2 id="vitrine-packs-title">Quatre packs prêts à composer</h2>
+    <p class="vitrine-section-head__lede">Associations, petites équipes, équipes internes — même design system, sites statiques que vous possédez. Choisissez un métier, voyez la démo, suivez le guide d’installation.</p>
+  </header>
+  <div class="vitrine-recipe-grid">
+    {{- range site.Data.packs -}}
+    <article class="vitrine-recipe vitrine-recipe--{{ .tone }}">
+      <p class="vitrine-recipe__tag">{{ .tag }}{{- if .pilot -}} · pilote{{- end -}}</p>
+      <h3 class="vitrine-recipe__title">{{ .title }}</h3>
+      <p class="vitrine-recipe__desc">{{ .description }}</p>
+      <ul class="vitrine-recipe__jobs" aria-label="Ce que vous pouvez faire">
+        {{- range .jobs -}}
+        <li>{{ . }}</li>
+        {{- end -}}
+      </ul>
+      <ul class="vitrine-recipe__modules" aria-label="Briques utilisées">
+        {{- range .modules -}}
+          {{- $demo := index site.Data.demos . -}}
+        <li>
+          {{- if $demo -}}
+          <a href="{{ $demo }}" target="_blank" rel="noopener noreferrer">{{ . }}</a>
+          {{- else -}}
+          <span>{{ . }}</span>
+          {{- end -}}
+        </li>
+        {{- end -}}
+      </ul>
+      <p class="vitrine-recipe__link">
+        {{- with .demo_url -}}
+        <a href="{{ . }}" target="_blank" rel="noopener noreferrer">Voir la démo <span aria-hidden="true">↗</span></a>
+        {{- end -}}
+        {{- with .guide_path -}}
+        · <a href="{{ . }}">Fiche pack</a>
+        {{- end -}}
+      </p>
+    </article>
+    {{- end -}}
+  </div>
+</section>
 
 <section class="vitrine-recipes" id="exemples" aria-labelledby="vitrine-recipes-title">
   <header class="vitrine-section-head">
@@ -60,11 +102,11 @@
   {{ partial "vitrine/module-grid.html" (dict "items" site.Data.modules.moteurs) }}
 </section>
 
-<section class="vitrine-modules vitrine-modules--split" id="terrain" aria-labelledby="vitrine-terrain-title">
+<section class="vitrine-modules vitrine-modules--split" id="referent" aria-labelledby="vitrine-terrain-title">
   <header class="vitrine-section-head vitrine-section-head--light">
-    <p class="vitrine-section-head__eyebrow">Audit et terrain</p>
-    <h2 id="vitrine-terrain-title">Kit auditeur et retour d’expérience</h2>
-    <p class="vitrine-section-head__lede">Frago pour structurer une restitution d’audit ; Fromago pour des enquêtes et formulaires reliés au dépôt du projet.</p>
+    <p class="vitrine-section-head__eyebrow">Référent &amp; auditeur</p>
+    <h2 id="vitrine-terrain-title">Inventaire, dossier mission, restitution honnête</h2>
+    <p class="vitrine-section-head__lede">Ligne distincte des packs « Sites structure » : Observer pour le parc, Audit Kit pour les constats confirmés, Frago et Fromago pour restituer — sans promesse de conformité automatique.</p>
   </header>
   {{ partial "vitrine/module-grid.html" (dict "items" site.Data.modules.terrain) }}
 </section>

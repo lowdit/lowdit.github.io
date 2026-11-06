@@ -1,0 +1,63 @@
+# Packs métier — ligne « Sites structure » (DEC 2026-11-05)
+# demo_url : démo publiée ou interim ; guide_path : page vitrine /packs/<id>/
+
+- id: comptes-rendus
+  tag: Gouvernance
+  title: "Comptes rendus de réunion, lisibles et archivables."
+  description: "Index chronologique, lecture web sobre, export PDF pour les membres qui n’étaient pas présents."
+  jobs:
+    - "Retrouver une décision datée en quelques clics"
+    - "Publier le CR sans refaire la mise en page à chaque fois"
+    - "Imprimer ou partager un PDF cohérent avec le site"
+  modules: [Minigo, Repogo]
+  view: thinktank
+  accent: "#2F6BFF"
+  tone: blue
+  demo_url: https://lowdit.github.io/repogo/
+  guide_path: /packs/comptes-rendus/
+  pilot: true
+
+- id: appel-offres
+  tag: Réponse
+  title: "Un dossier d’appel d’offres : PDF, prez et équipe."
+  description: "Une coque unique relie le dossier technique, la présentation orale et les CV de l’équipe."
+  jobs:
+    - "Télécharger le mémoire technique en PDF"
+    - "Projeter la prez comité"
+    - "Montrer les profils CV sans ressaisie"
+  modules: [Minigo, Repogo, Sligo, Resugo]
+  view: hub
+  accent: "#14C6B1"
+  tone: mint
+  demo_url: https://lowdit.github.io/repogo/
+  guide_path: /packs/appel-offres/
+
+- id: onboarding
+  tag: Accueil
+  title: "Onboarding et formation en slides + pages d’orientation."
+  description: "Decks projetables et hub qui oriente les nouveaux arrivants ou les adhérents."
+  jobs:
+    - "Parcourir les decks par public ou date"
+    - "Lire les consignes entre deux sessions"
+    - "Rester dans la même charte Lowdit"
+  modules: [Sligo, Minigo]
+  view: deck-studio
+  accent: "#5B3DF5"
+  tone: violet
+  demo_url: https://lowdit.github.io/sligo/
+  guide_path: /packs/onboarding/
+
+- id: vitrine-org
+  tag: Présence
+  title: "Vitrine d’organisation : mission, liens, actualités."
+  description: "Site sobre pour présenter qui vous êtes et où agir — sans usine à gaz."
+  jobs:
+    - "Expliquer la mission en une page d’accueil claire"
+    - "Relier documents, contact et actualités"
+    - "Héberger sur GitHub Pages ou Cloudflare"
+  modules: [Minigo, Higo]
+  view: catalog
+  accent: "#0B2545"
+  tone: navy
+  demo_url: https://lowdit.github.io/
+  guide_path: /packs/vitrine-org/

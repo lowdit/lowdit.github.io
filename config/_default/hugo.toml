@@ -20,25 +20,29 @@ theme = "minigo"
   vitrineHeaderMotion = true
 
 [[menus.main]]
-  name = "Moteurs"
-  url = "/#moteurs"
+  name = "Packs site"
+  url = "/#packs"
   weight = 1
 [[menus.main]]
-  name = "Audit & terrain"
-  url = "/#terrain"
+  name = "Référent"
+  url = "/#referent"
   weight = 2
+[[menus.main]]
+  name = "Moteurs"
+  url = "/#moteurs"
+  weight = 3
 [[menus.main]]
   name = "Coques"
   url = "/#coques"
-  weight = 3
+  weight = 4
 [[menus.main]]
   name = "Exemples"
   url = "/#exemples"
-  weight = 4
+  weight = 5
 [[menus.main]]
   name = "GitHub"
   url = "https://github.com/lowdit"
-  weight = 5
+  weight = 6
 
 [markup.goldmark.renderer]
   unsafe = true
